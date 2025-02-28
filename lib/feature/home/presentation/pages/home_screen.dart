@@ -40,19 +40,7 @@ class HomeScreen extends StatelessWidget {
               Navigator.pop(context);
               showErrorToast(context, state.error);
             } else if (state is BestSellerSuccessState) {
-                Expanded(
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                    childAspectRatio: 15 / 25,
-                    padding: EdgeInsets.all(5),
-                    children: List.generate(4, (index) {
-                      BestSellersResponse.fromJson;
-                      return BookContainer();
-                    }),
-                  ),
-                );
+                Product.fromJson;
             } else if (state is BestSellerLoadingState) {
               showLoadingDialog(context);
             }
@@ -65,18 +53,18 @@ class HomeScreen extends StatelessWidget {
                   children: [Text('Popular Books', style: getBodyTextStyle())],
                 ),
                 Gap(15),
-                // Expanded(
-                //   child: GridView.count(
-                //     crossAxisCount: 2,
-                //     crossAxisSpacing: 15,
-                //     mainAxisSpacing: 15,
-                //     childAspectRatio: 15 / 25,
-                //     padding: EdgeInsets.all(5),
-                //     children: List.generate(4, (index) {
-                //       return BookContainer();
-                //     }),
-                //   ),
-                // ),
+                Expanded(
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing: 15,
+                    childAspectRatio: 15 / 25,
+                    padding: EdgeInsets.all(5),
+                    children: List.generate(4, (index) {
+                      return BookContainer();
+                    }),
+                  ),
+                ),
               ],
             );
           },
