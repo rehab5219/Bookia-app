@@ -1,18 +1,17 @@
 import 'package:dio/dio.dart';
 
-class DioProvider{
+class DioProvider {
   static late Dio _dio;
 
-  static init(){
-    _dio = Dio(BaseOptions(
-      baseUrl: "https://jsonplaceholder.typicode.com"
-    ));
+  static init() {
+    _dio = Dio(BaseOptions(baseUrl: "https://codingarabic.online/api/"));
   }
 
-  Future<Response> get(
-      {required String endpoint,
-      Map<String, dynamic>? params,
-      Map<String, dynamic>? headers}) async {
+  static Future<Response> get({
+    required String endpoint,
+    Map<String, dynamic>? params,
+    Map<String, dynamic>? headers,
+  }) async {
     return await _dio.get(
       endpoint,
       data: params,
@@ -20,10 +19,23 @@ class DioProvider{
     );
   }
 
-  Future<Response> post(
-      {required String endpoint,
-      Map<String, dynamic>? params,
-      Map<String, dynamic>? headers}) async {
+  static Future<Response> post({
+    required String endpoint,
+    Map<String, dynamic>? params,
+    Map<String, dynamic>? headers,
+  }) async {
+    return await _dio.post(
+      endpoint,
+      data: params,
+      options: Options(headers: headers),
+    );
+  }
+
+  static Future<Response> update({
+    required String endpoint,
+    Map<String, dynamic>? params,
+    Map<String, dynamic>? headers,
+  }) async {
     return await _dio.get(
       endpoint,
       data: params,
@@ -31,21 +43,11 @@ class DioProvider{
     );
   }
 
-  Future<Response> update(
-      {required String endpoint,
-      Map<String, dynamic>? params,
-      Map<String, dynamic>? headers}) async {
-    return await _dio.get(
-      endpoint,
-      data: params,
-      options: Options(headers: headers),
-    );
-  }
-
-  Future<Response> delete(
-      {required String endpoint,
-      Map<String, dynamic>? params,
-      Map<String, dynamic>? headers}) async {
+  static Future<Response> delete({
+    required String endpoint,
+    Map<String, dynamic>? params,
+    Map<String, dynamic>? headers,
+  }) async {
     return await _dio.get(
       endpoint,
       data: params,

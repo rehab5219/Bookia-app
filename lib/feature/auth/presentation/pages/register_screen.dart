@@ -2,9 +2,17 @@ import 'package:bookia/core/constants/assets-manager.dart';
 import 'package:bookia/core/extensions/navigator.dart';
 import 'package:bookia/core/utils/text_styles.dart';
 import 'package:bookia/core/widgets/custom_Button.dart';
+import 'package:bookia/core/widgets/dialogs.dart';
+import 'package:bookia/feature/auth/data/models/request/register_params.dart';
+import 'package:bookia/feature/auth/presentation/cubit/auth_cubit.dart';
+import 'package:bookia/feature/auth/presentation/cubit/auth_states.dart';
+import 'package:bookia/feature/auth/presentation/pages/login_screen.dart';
+import 'package:bookia/feature/home/presentation/pages/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../core/utils/app_colors.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -31,82 +39,149 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(22),
-        child: Column(
+      bottomNavigationBar: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Hello! Register to get started',
-              style: getHeadLineTextStyle(),
-            ),
-            const Gap(30),
-            TextFormField(
-              decoration: InputDecoration(
-                  hintText: 'Username'
-              ),
-            ),
-            const Gap(15),
-            TextFormField(
-              decoration: InputDecoration(
-                  hintText: 'Email'
-              ),
-            ),
-            const Gap(15),
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Password',
-                suffixIconConstraints: BoxConstraints(
-                  maxHeight: 30, maxWidth: 40, minHeight: 30, minWidth: 30,
-                ),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: SvgPicture.asset(
-                    AssetsManager.eyeSvg,
+            Text('Already have an account?', style: getSmallTextStyle()),
+            const Gap(5),
+            TextButton(
+              onPressed: () {
+                context.pushReplacement(
+                  BlocProvider(
+                    create: (context) => AuthCubit(),
+                    child: LoginScreen(),
                   ),
-                ),
+                );
+              },
+              child: Text(
+                'Login Now',
+                style: getSmallTextStyle(color: AppColors.primaryColor),
               ),
-            ),
-            const Gap(15),
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Confirm Password',
-                suffixIconConstraints: BoxConstraints(
-                  maxHeight: 30, maxWidth: 40, minHeight: 30, minWidth: 30,
-                ),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: SvgPicture.asset(
-                    AssetsManager.eyeSvg,
-                  ),
-                ),
-              ),
-            ),
-            const Gap(30),
-            CustomButton(
-              text: 'Register',
-              onPressed: (){},
-            ),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Already have an account?',
-                  style: getSmallTextStyle(),
-                ),
-                const Gap(5),
-                TextButton(
-                  onPressed: () {
-                    context.pushReplacement(RegisterScreen());
-                  },
-                  child: Text(
-                    'Login Now',
-                    style: getSmallTextStyle(color: AppColors.primaryColor),
-                  ),
-                ),
-              ],
             ),
           ],
+        ),
+      ),
+      body: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthErrorState) {
+            Navigator.pop(context);
+            showErrorToast(context, state.error);
+          } else if (state is AuthSuccessState) {
+            context.pushAndRemove(HomeScreen());
+          } else if (state is AuthLoadingState) {
+            showLoadingDialog(context);
+          }
+        },
+        builder: (context, state) {
+          return mainUi();
+        },
+      ),
+    );
+  }
+
+  Padding mainUi() {
+    var cubit = context.read<AuthCubit>();
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: SingleChildScrollView(
+        child: Form(
+          key: cubit.formKey,
+          child: Column(
+            children: [
+              Text(
+                'Hello! Register to get started',
+                style: getHeadLineTextStyle(),
+              ),
+              const Gap(30),
+              TextFormField(
+                controller: cubit.nameController,
+                decoration: InputDecoration(hintText: 'Name'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your name';
+                  }
+                  return null;
+                },
+              ),
+              const Gap(15),
+              TextFormField(
+                controller: cubit.emailController,
+                decoration: InputDecoration(hintText: 'Email'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
+              ),
+              const Gap(15),
+              TextFormField(
+                obscureText: !cubit.showPassword,
+                controller: cubit.passwordController,
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  suffixIconConstraints: BoxConstraints(
+                    maxHeight: 30,
+                    maxWidth: 40,
+                    minHeight: 30,
+                    minWidth: 30,
+                  ),
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: SvgPicture.asset(AssetsManager.eyeSvg),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  return null;
+                },
+              ),
+              const Gap(15),
+              TextFormField(
+                obscureText: !cubit.showPassword,
+                controller: cubit.passwordController,
+                decoration: InputDecoration(
+                  hintText: 'Password Confirmation',
+                  suffixIconConstraints: BoxConstraints(
+                    maxHeight: 30,
+                    maxWidth: 40,
+                    minHeight: 30,
+                    minWidth: 30,
+                  ),
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: SvgPicture.asset(AssetsManager.eyeSvg),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password confirmation';
+                  }
+                  return null;
+                },
+              ),
+              const Gap(30),
+              CustomButton(
+                text: 'Register',
+                onPressed: () {
+                  if (cubit.formKey.currentState!.validate()) {
+                    cubit.register(
+                      RegisterParams(
+                        name: cubit.nameController.text,
+                        email: cubit.emailController.text,
+                        password: cubit.passwordController.text,
+                        passwordConfirmation:
+                            cubit.passwordConfirmationController.text,
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

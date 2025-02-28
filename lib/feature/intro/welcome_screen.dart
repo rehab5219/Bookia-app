@@ -3,8 +3,11 @@ import 'package:bookia/core/extensions/navigator.dart';
 import 'package:bookia/core/utils/app_colors.dart';
 import 'package:bookia/core/utils/text_styles.dart';
 import 'package:bookia/core/widgets/custom_Button.dart';
+import 'package:bookia/feature/auth/presentation/cubit/auth_cubit.dart';
 import 'package:bookia/feature/auth/presentation/pages/login_screen.dart';
+import 'package:bookia/feature/auth/presentation/pages/register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
@@ -38,8 +41,13 @@ class WelcomeScreen extends StatelessWidget {
                 Spacer(),
                 CustomButton(
                   text: 'Login',
-                  onPressed: (){
-                    context.pushTo(LoginScreen());
+                  onPressed: () {
+                    context.pushTo(
+                      BlocProvider(
+                        create: (context) => AuthCubit(),
+                        child: LoginScreen(),
+                      ),
+                    );
                   },
                 ),
                 const Gap(15),
@@ -48,7 +56,14 @@ class WelcomeScreen extends StatelessWidget {
                   bgColor: AppColors.whiteColor,
                   fgColor: AppColors.darkColor,
                   borderColor: AppColors.darkColor,
-                  onPressed: (){},
+                  onPressed: () {
+                    context.pushTo(
+                      BlocProvider(
+                        create: (context) => AuthCubit(),
+                        child: RegisterScreen(),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

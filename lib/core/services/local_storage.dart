@@ -1,24 +1,38 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppLocalStorage{
-  static late SharedPreferences _preferences;
-  static init() async {
-    _preferences = await SharedPreferences.getInstance();
+  static SharedPreferences? _prefs;
+
+  static Future<void> init () async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
-  void cacheData(String key, value){
+  static cacheData (String key, dynamic value) async {
     if(value is int){
-      _preferences.setInt(key, value);
-    }else if(value is String){
-      _preferences.setString(key, value);
+      await _prefs?.setInt(key, value);
+    }else if(value is double){
+      await _prefs?.setDouble(key, value);
     }else if(value is bool){
-      _preferences.setBool(key, value);
+      await _prefs?.setBool(key, value);
+    }else if(value is String){
+      await _prefs?.setString(key, value);
+    }else if(value is List<String>){
+      await _prefs?.setStringList(key, value);
     }else{
-      _preferences.setDouble(key, value);
+      throw Exception("UnSupported type for Shared Helper");
     }
   }
 
-  dynamic getData(String key){
-    return _preferences.get(key);
+  static dynamic getData(String key) {
+    return _prefs?.get(key);
   }
+
+  // static Future<bool?> removeKey(String key) async {
+//     return await prefs?.remove(key);
+//   }
+//
+//   static clearAll() async {
+//     return await prefs?.clear();
+//   }
+// }
 }

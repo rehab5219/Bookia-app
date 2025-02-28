@@ -2,7 +2,7 @@ import 'package:bookia/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
-TextStyle getHeadLineTextStyle({double? fontSize, Color? color}){
+TextStyle getHeadLineTextStyle({double? fontSize, Color? color}) {
   return TextStyle(
     fontFamily: AppConstants.fontFamily,
     color: color ?? AppColors.darkColor,
@@ -10,7 +10,7 @@ TextStyle getHeadLineTextStyle({double? fontSize, Color? color}){
   );
 }
 
-TextStyle getTitleTextStyle({double? fontSize, Color? color}){
+TextStyle getTitleTextStyle({double? fontSize, Color? color}) {
   return TextStyle(
     fontFamily: AppConstants.fontFamily,
     color: color ?? AppColors.darkColor,
@@ -18,7 +18,7 @@ TextStyle getTitleTextStyle({double? fontSize, Color? color}){
   );
 }
 
-TextStyle getBodyTextStyle({double? fontSize, Color? color}){
+TextStyle getBodyTextStyle({double? fontSize, Color? color}) {
   return TextStyle(
     fontFamily: AppConstants.fontFamily,
     color: color ?? AppColors.darkColor,
@@ -26,7 +26,7 @@ TextStyle getBodyTextStyle({double? fontSize, Color? color}){
   );
 }
 
-TextStyle getSmallTextStyle({double? fontSize, Color? color}){
+TextStyle getSmallTextStyle({double? fontSize, Color? color}) {
   return TextStyle(
     fontFamily: AppConstants.fontFamily,
     color: color ?? AppColors.darkColor,

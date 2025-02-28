@@ -11,7 +11,7 @@ class CustomButton extends StatelessWidget {
     this.height,
     this.width,
     this.fgColor,
-    this.borderColor
+    this.borderColor,
   });
 
   final String text;
@@ -30,9 +30,10 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: bgColor ?? AppColors.primaryColor,
-          side: borderColor !=null
-          ? BorderSide(color: borderColor ?? AppColors.primaryColor)
-          : BorderSide.none,
+          side:
+              borderColor != null
+                  ? BorderSide(color: borderColor ?? AppColors.primaryColor)
+                  : BorderSide.none,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
