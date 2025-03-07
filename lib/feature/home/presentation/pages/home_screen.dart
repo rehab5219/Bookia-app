@@ -29,22 +29,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.bookmark),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.category),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.person),
-      //     ),
-      //   ],
-      //  ),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: BlocBuilder<HomeCubit, HomeState>(
@@ -53,62 +37,40 @@ class HomeScreen extends StatelessWidget {
             if (state is BestSellerLoadingState) {
               return showLoadingDialog(context);
             } else if (state is BestSellerSuccessState) {
-               return Column(
-                Product.fromJson;
+              return Column(
+                children: [
+                  HomeBanner(),
+                  Gap(15),
+                  Row(
+                    children: [
+                      Text('Popular Books', style: getBodyTextStyle()),
+                    ],
+                  ),
+                  Gap(15),
+                  Expanded(
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                      childAspectRatio: 15 / 25,
+                      padding: EdgeInsets.all(5),
+                      children: List.generate(4, (index) {
+                        return BookContainer();
+                      }),
+                    ),
+                  ),
+                ],
+              );
             } else if (state is BestSellerLoadingState) {
-              showLoadingDialog(context);
-            }
-            
-            return Column(
-              children: [
-                HomeBanner(),
-                Gap(15),
-                Row(
-                  children: [Text('Popular Books', style: getBodyTextStyle())],
-
-                ),
-                Gap(15),
-                Expanded(
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                    childAspectRatio: 15 / 25,
-                    padding: EdgeInsets.all(5),
-                    children: List.generate(4, (index) {
-                      return BookContainer();
-                    }),
-                  ),
-                ),
-=======
-                ),
-                Gap(15),
-                Expanded(
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15,
-                    childAspectRatio: 15 / 25,
-                    padding: EdgeInsets.all(5),
-                    children: List.generate(4, (index) {
-                      return BookContainer();
-                    }),
-                  ),
-                ),
->>>>>>> 7e752b20c7b89e1e2109813ad04afadec557d98e
-              ],
-            );
-            } else if
-              (state is BestSellerErrorState) {
+              return showLoadingDialog(context);
+            } else if (state is BestSellerErrorState) {
               Navigator.pop(context);
               return showErrorToast(context, state.error);
-            }
-            else{
+            } else {
               return Text('error');
             }
-          },    
-
-      ),
+          },
+        ),
       ),
     );
   }
