@@ -54,11 +54,18 @@ class HomeScreen extends StatelessWidget {
               return showLoadingDialog(context);
             } else if (state is BestSellerSuccessState) {
                return Column(
+                Product.fromJson;
+            } else if (state is BestSellerLoadingState) {
+              showLoadingDialog(context);
+            }
+            
+            return Column(
               children: [
                 HomeBanner(),
                 Gap(15),
                 Row(
                   children: [Text('Popular Books', style: getBodyTextStyle())],
+
                 ),
                 Gap(15),
                 Expanded(
@@ -73,6 +80,22 @@ class HomeScreen extends StatelessWidget {
                     }),
                   ),
                 ),
+=======
+                ),
+                Gap(15),
+                Expanded(
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing: 15,
+                    childAspectRatio: 15 / 25,
+                    padding: EdgeInsets.all(5),
+                    children: List.generate(4, (index) {
+                      return BookContainer();
+                    }),
+                  ),
+                ),
+>>>>>>> 7e752b20c7b89e1e2109813ad04afadec557d98e
               ],
             );
             } else if
