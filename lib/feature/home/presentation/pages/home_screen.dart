@@ -1,8 +1,6 @@
 import 'package:bookia/core/constants/assets-manager.dart';
 import 'package:bookia/core/utils/text_styles.dart';
 import 'package:bookia/core/widgets/dialogs.dart';
-import 'package:bookia/feature/home/data/models/best_sellers_response/best_sellers_response.dart';
-import 'package:bookia/feature/home/data/models/best_sellers_response/product.dart';
 import 'package:bookia/feature/home/presentation/cubit/home_cubit.dart';
 import 'package:bookia/feature/home/presentation/cubit/home_states.dart';
 import 'package:bookia/feature/home/presentation/widgets/book_container.dart';
@@ -31,15 +29,38 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.bookmark),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.category),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.person),
+      //     ),
+      //   ],
+      //  ),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             var cubit = context.read<HomeCubit>();
-            if (state is BestSellerErrorState) {
-              Navigator.pop(context);
-              showErrorToast(context, state.error);
+            if (state is BestSellerLoadingState) {
+              return showLoadingDialog(context);
             } else if (state is BestSellerSuccessState) {
+               return Column(
+              children: [
+                HomeBanner(),
+                Gap(15),
+                Row(
+                  children: [Text('Popular Books', style: getBodyTextStyle())],
+                ),
+                Gap(15),
                 Expanded(
                   child: GridView.count(
                     crossAxisCount: 2,
@@ -48,39 +69,23 @@ class HomeScreen extends StatelessWidget {
                     childAspectRatio: 15 / 25,
                     padding: EdgeInsets.all(5),
                     children: List.generate(4, (index) {
-                      BestSellersResponse.fromJson;
                       return BookContainer();
                     }),
                   ),
-                );
-            } else if (state is BestSellerLoadingState) {
-              showLoadingDialog(context);
-            }
-            
-            return Column(
-              children: [
-                HomeBanner(),
-                Gap(15),
-                Row(
-                  children: [Text('Popular Books', style: getBodyTextStyle())],
                 ),
-                Gap(15),
-                // Expanded(
-                //   child: GridView.count(
-                //     crossAxisCount: 2,
-                //     crossAxisSpacing: 15,
-                //     mainAxisSpacing: 15,
-                //     childAspectRatio: 15 / 25,
-                //     padding: EdgeInsets.all(5),
-                //     children: List.generate(4, (index) {
-                //       return BookContainer();
-                //     }),
-                //   ),
-                // ),
               ],
             );
-          },
-        ),
+            } else if
+              (state is BestSellerErrorState) {
+              Navigator.pop(context);
+              return showErrorToast(context, state.error);
+            }
+            else{
+              return Text('error');
+            }
+          },    
+
+      ),
       ),
     );
   }

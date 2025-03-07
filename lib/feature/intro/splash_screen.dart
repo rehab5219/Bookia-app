@@ -3,7 +3,7 @@ import 'package:bookia/core/constants/constants.dart';
 import 'package:bookia/core/extensions/navigator.dart';
 import 'package:bookia/core/services/local_storage.dart';
 import 'package:bookia/core/utils/text_styles.dart';
-import 'package:bookia/feature/home/presentation/pages/home_screen.dart';
+import 'package:bookia/feature/home/presentation/pages/bottom_navigation_bar_screen.dart';
 import 'package:bookia/feature/intro/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if(token!=null){
         context.pushReplacement(WelcomeScreen());
       }else{
-        context.pushReplacement(HomeScreen());
+        context.pushReplacement(BottomNavigationBarScreen());
       }
     });
   }
