@@ -12,12 +12,8 @@ class NewprofileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: 
-        Image.asset(AssetsManager.back, width: 60, height: 60),
-        title: Text(
-          'Edit Profile', 
-          style: getBodyTextStyle()
-        ),
+        leading: Image.asset(AssetsManager.back, width: 60, height: 60),
+        title: Text('Edit Profile', style: getBodyTextStyle()),
       ),
       body: Align(
         alignment: Alignment.center,
@@ -37,28 +33,13 @@ class NewprofileScreen extends StatelessWidget {
                     child: CircleAvatar(radius: 15),
                   ),
                   Gap(50),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Full Name'
-                    ),
-                  ),
+                  TextField(decoration: InputDecoration(hintText: 'Full Name')),
                   Gap(26),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Phone'
-                    ),
-                  ),
+                  TextField(decoration: InputDecoration(hintText: 'Phone')),
                   Gap(26),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Address'
-                    ),
-                  ),
+                  TextField(decoration: InputDecoration(hintText: 'Address')),
                   Spacer(),
-                  CustomButton(
-                    onPressed: () {}, 
-                    text: 'Update Profile',
-                  ),
+                  CustomButton(onPressed: () {}, text: 'Update Profile'),
                 ],
               ),
             ],

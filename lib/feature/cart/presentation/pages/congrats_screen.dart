@@ -15,17 +15,14 @@ class CongratsScreen extends StatelessWidget {
           children: [
             Image.asset('assets/images/Sticker.png', width: 150),
             Gap(20),
-            Text(
-              'SUCCESS!!',
-              style: getHeadLineTextStyle(),
-            ),
+            Text('SUCCESS!!', style: getHeadLineTextStyle()),
             Gap(10),
             Text('Your order will be delivered soon.'),
             Gap(5),
             Text('Thank you for choosing our app!'),
             Gap(20),
             CustomButton(
-              onPressed: () {}, 
+              onPressed: () {},
               text: 'Back To Home',
               width: 330,
               height: 60,

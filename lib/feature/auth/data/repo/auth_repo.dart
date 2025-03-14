@@ -35,8 +35,7 @@ class AuthRepo {
         return null;
       }
     } on Exception catch (e) {
-      if(e is DioException){
-      }
+      if (e is DioException) {}
       return null;
     }
   }

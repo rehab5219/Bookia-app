@@ -4,7 +4,6 @@ import 'package:bookia/feature/profile/models/profile_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeContainer extends StatelessWidget {
-
   final ProfileModel data;
   const HomeContainer({super.key, required this.data});
 
@@ -15,17 +14,12 @@ class HomeContainer extends StatelessWidget {
         height: 50,
         width: 300,
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(color: AppColors.darkColor),
-          ],
+          boxShadow: [BoxShadow(color: AppColors.darkColor)],
           borderRadius: BorderRadius.circular(4),
         ),
         child: Row(
           children: [
-            Text(
-              data.text,
-              style: getSmallTextStyle(),
-            ),
+            Text(data.text, style: getSmallTextStyle()),
             Icon(Icons.arrow_forward),
           ],
         ),

@@ -25,22 +25,13 @@ class _NewpasswordScreenState extends State<NewpasswordScreen> {
           alignment: Alignment.center,
           child: Column(
             children: [
-              Text(
-                'New Password',
-                style: getTitleTextStyle(),
-              ),
+              Text('New Password', style: getTitleTextStyle()),
               Gap(70),
               TextField(
-                decoration: InputDecoration(
-                  hintText: 'Current Password',
-                ),
+                decoration: InputDecoration(hintText: 'Current Password'),
               ),
               Gap(26),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'New Password',
-                ),
-              ),
+              TextField(decoration: InputDecoration(hintText: 'New Password')),
               Gap(26),
               TextField(
                 decoration: InputDecoration(
@@ -58,10 +49,7 @@ class _NewpasswordScreenState extends State<NewpasswordScreen> {
                 ),
               ),
               Spacer(),
-              CustomButton( 
-                onPressed: (){},
-                text: 'Update Password',
-              )
+              CustomButton(onPressed: () {}, text: 'Update Password'),
             ],
           ),
         ),

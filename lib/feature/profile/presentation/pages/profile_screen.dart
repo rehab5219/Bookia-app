@@ -2,7 +2,7 @@ import 'package:bookia/core/constants/assets-manager.dart';
 import 'package:bookia/core/utils/app_colors.dart';
 import 'package:bookia/core/utils/text_styles.dart';
 import 'package:bookia/feature/profile/models/profile_model.dart';
-import 'package:bookia/feature/profile/widgets/home_container.dart';
+import 'package:bookia/feature/profile/presentation/widgets/home_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -43,12 +43,11 @@ class ProfileScreen extends StatelessWidget {
                 'sayed@gmail.com',
                 style: getSmallTextStyle().copyWith(color: AppColors.greyColor),
               ),
-              Expanded(
-                child: ListView.separated(
-                  itemBuilder: (context, index) => HomeContainer(data: data[index]), 
-                  separatorBuilder: (context, index) => Gap(10),
-                  itemCount: data.length,
-                ),
+              ListView.separated(
+                itemBuilder:
+                    (context, index) => HomeContainer(data: data[index]),
+                separatorBuilder: (context, index) => Gap(10),
+                itemCount: data.length,
               ),
             ],
           ),

@@ -3,11 +3,7 @@ import 'package:bookia/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-showErrorToast(BuildContext context, String text) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text(text), backgroundColor: AppColors.primaryColor),
-  );
-}
+
 
 showLoadingDialog(BuildContext context) {
   showDialog(
@@ -17,5 +13,20 @@ showLoadingDialog(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [Lottie.asset(AssetsManager.bookJson, width: 200)],
         ),
+  );
+}
+
+showSuccessToast(BuildContext context, String text) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(text), 
+      backgroundColor: Colors.green,
+    ),
+  );
+}
+
+showErrorToast(BuildContext context, String text) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text(text), backgroundColor: AppColors.primaryColor),
   );
 }

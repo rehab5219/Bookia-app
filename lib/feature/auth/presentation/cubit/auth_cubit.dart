@@ -13,7 +13,8 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController passwordConfirmationController = TextEditingController();
+  TextEditingController passwordConfirmationController =
+      TextEditingController();
 
   bool showPassword = false;
 

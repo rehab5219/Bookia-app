@@ -5,7 +5,7 @@ import 'package:bookia/core/extensions/navigator.dart';
 import 'package:bookia/core/utils/app_colors.dart';
 import 'package:bookia/core/utils/text_styles.dart';
 import 'package:bookia/core/widgets/custom_Button.dart';
-import 'package:bookia/feature/cart/congrats_screen.dart';
+import 'package:bookia/feature/cart/presentation/pages/congrats_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -16,10 +16,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true, 
-        title: Text('My Cart')
-      ),
+      appBar: AppBar(centerTitle: true, title: Text('My Cart')),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
