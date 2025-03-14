@@ -34,8 +34,6 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [HomeBanner(), Gap(10), PopularBooksBuilder()],
           ),
-<<<<<<< HEAD
-=======
           IconButton(
             onPressed: () {},
             icon: SvgPicture.asset(AssetsManager.searchSvg),
@@ -83,7 +81,6 @@ class HomeScreen extends StatelessWidget {
               return Text('error');
             }
           },
->>>>>>> 67f28c7e521357ce380a705634565f3e248b5d16
         ),
       ),
     );
