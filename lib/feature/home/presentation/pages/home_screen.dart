@@ -34,53 +34,6 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [HomeBanner(), Gap(10), PopularBooksBuilder()],
           ),
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(AssetsManager.searchSvg),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            var cubit = context.read<HomeCubit>();
-            if (state is BestSellerLoadingState) {
-              return showLoadingDialog(context);
-            } else if (state is BestSellerSuccessState) {
-              return Column(
-                children: [
-                  HomeBanner(),
-                  Gap(15),
-                  Row(
-                    children: [
-                      Text('Popular Books', style: getBodyTextStyle()),
-                    ],
-                  ),
-                  Gap(15),
-                  Expanded(
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 15,
-                      mainAxisSpacing: 15,
-                      childAspectRatio: 15 / 25,
-                      padding: EdgeInsets.all(5),
-                      children: List.generate(4, (index) {
-                        return BookContainer();
-                      }),
-                    ),
-                  ),
-                ],
-              );
-            } else if (state is BestSellerLoadingState) {
-              return showLoadingDialog(context);
-            } else if (state is BestSellerErrorState) {
-              Navigator.pop(context);
-              return showErrorToast(context, state.error);
-            } else {
-              return Text('error');
-            }
-          },
         ),
       ),
     );
